@@ -2,7 +2,7 @@
 
 <div class="container mt-4">
 
-    <!-- ✅ Breadcrumb -->
+    <!-- Breadcrumb -->
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="/home">Home</a></li>
@@ -12,7 +12,7 @@
 
     <h2 class="text-primary mb-4">Admin Reports</h2>
 
-    <!-- ✅ Charts Row -->
+    <!-- Charts Row -->
     <div class="row mb-4">
         <!-- Logins Bar Chart -->
         <div class="col-md-6">
@@ -39,7 +39,7 @@
         </div>
     </div>
 
-    <!-- ✅ Total Logins Table -->
+    <!-- Total Logins Table -->
     <div class="card shadow-sm mb-4">
         <div class="card-header bg-primary text-white">
             <i class="bi bi-person-lines-fill me-1"></i> Total Logins Table
@@ -70,7 +70,7 @@
         </div>
     </div>
 
-    <!-- ✅ All Reminders Table -->
+    <!-- All Reminders Table -->
     <div class="card shadow-sm mb-4">
         <div class="card-header bg-dark text-white">
             <i class="bi bi-list-check me-1"></i> All Reminders
@@ -109,7 +109,7 @@
         </div>
     </div>
 
-    <!-- ✅ Top User -->
+    <!-- Top User -->
     <div class="alert alert-info mt-3 shadow-sm">
         <strong><i class="bi bi-trophy me-1"></i> Top User:</strong>
         <?= htmlspecialchars($topUser['username']); ?> with <?= $topUser['total_reminders']; ?> reminders.
@@ -118,10 +118,10 @@
 
 <?php require_once 'app/views/templates/footer.php'; ?>
 
-<!-- ✅ Chart.js Script -->
+<!-- Chart.js Script -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-    // ✅ Total Logins Bar Chart
+    // Total Logins Bar Chart
     const loginsCtx = document.getElementById('loginsChart').getContext('2d');
     new Chart(loginsCtx, {
         type: 'bar',
@@ -144,7 +144,7 @@
         }
     });
 
-    // ✅ Completed vs Pending Pie Chart
+    // Completed vs Pending Pie Chart
     const remindersData = <?= json_encode($allReminders); ?>;
     const completedCount = remindersData.filter(r => r.completed == 1).length;
     const pendingCount = remindersData.length - completedCount;
