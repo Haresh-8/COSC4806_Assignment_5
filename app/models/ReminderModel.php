@@ -65,4 +65,12 @@ class ReminderModel {
             ");
             return $stmt->fetch(PDO::FETCH_ASSOC);
         }
+
+    // Count completed reminders for a specific user
+        public function countCompleted($user_id) {
+            $db = db_connect();
+            $stmt = $db->prepare("SELECT COUNT(*) FROM reminders WHERE user_id = ? AND completed = 1");
+            $stmt->execute([$user_id]);
+            return $stmt->fetchColumn();
+        }
 }
