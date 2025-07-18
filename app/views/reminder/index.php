@@ -1,16 +1,16 @@
 <?php require_once 'app/views/templates/header.php'; ?>
 
-<style>
-    .completed-reminder {
-        
-        opacity: 0.6;
-        transition: all 0.5s ease-in-out;
-    }
-</style>
-
 <div class="container mt-4">
-    <h2>Your Reminders</h2>
 
+    <!-- Breadcrumb Navigation -->
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/home">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">My Reminders</li>
+        </ol>
+    </nav>
+
+    <h2 class="mb-3">Your Reminders</h2>
     <?php date_default_timezone_set("America/Toronto"); ?>
     <p class="lead" id="toronto-time">
         <?= date("F jS, Y") ?> - <?= date("h:i:s A") ?>
@@ -39,34 +39,47 @@
 
 
 
-    <table class="table table-striped">
-        <thead>
-            <tr><th>Subject</th><th>Status</th><th>Actions</th></tr>
+
+    <!-- Reminders Table -->
+    <table class="table table-striped table-hover shadow-sm">
+        <thead class="table-light">
+            <tr>
+                <th>Subject</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
         </thead>
         <tbody>
-            <?php foreach ($data['reminders'] as $reminder): ?>
+            <?php if (!empty($data['reminders'])): ?>
+                <?php foreach ($data['reminders'] as $reminder): ?>
+                    <tr>
+                        <td><?= htmlspecialchars($reminder['subject']) ?></td>
+                        <td>
+                            <?php if ($reminder['completed']): ?>
+                                <span class="badge bg-success">Done</span>
+                            <?php else: ?>
+                                <span class="badge bg-warning text-dark">Pending</span>
+                            <?php endif; ?>
+                        </td>
+                        <td>
+                            <a href="/reminder/edit/<?= $reminder['id'] ?>" class="btn btn-sm btn-primary">
+                                <i class="bi bi-pencil-square"></i> Edit
+                            </a>
+                            <a href="/reminder/delete/<?= $reminder['id'] ?>" 
+                               class="btn btn-sm btn-danger" 
+                               onclick="return confirm('Delete this reminder?')">
+                                <i class="bi bi-trash"></i> Delete
+                            </a>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            <?php else: ?>
                 <tr>
-                    <td class="<?= $reminder['completed'] ? 'completed-reminder text-muted' : '' ?>">
-                        <?= htmlspecialchars($reminder['subject']) ?>
-                    </td>
-                    <td><?= $reminder['completed'] ? 'Done' : 'Pending' ?></td>
-                    <td>
-                        <a href="/reminder/edit/<?= $reminder['id'] ?>" class="btn btn-sm btn-primary">Edit</a>
-                        <a href="/reminder/delete/<?= $reminder['id'] ?>" class="btn btn-sm btn-danger" onclick="return confirm('Delete this reminder?')">Delete</a>
-
-                        <?php if (!$reminder['completed']): ?>
-                            <form method="POST" action="/reminder/complete/<?= $reminder['id'] ?>" style="display:inline;">
-                                <button type="submit" class="btn btn-sm btn-success">Mark as Done</button>
-                            </form>
-                        <?php endif; ?>
-                    </td>
+                    <td colspan="3" class="text-center text-muted">No reminders found. Start by creating one!</td>
                 </tr>
-            <?php endforeach; ?>
+            <?php endif; ?>
         </tbody>
     </table>
-
-    <a href="/home" class="btn btn-secondary mb-3">← Back to Home</a>
-    <a href="/reminder/create" class="btn btn-success mb-3">+ Add Reminder</a>
 </div>
 
 <?php require_once 'app/views/templates/footer.php'; ?>
