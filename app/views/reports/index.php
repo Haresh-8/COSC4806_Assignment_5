@@ -1,6 +1,13 @@
 <?php require_once 'app/views/templates/header.php'; ?>
 
 <div class="container mt-4">
+    <!-- Breadcrumb -->
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/home">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Admin Reports</li>
+        </ol>
+    </nav>
 
     <h2 class="text-primary mb-4">Admin Reports</h2>
 
