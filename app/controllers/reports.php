@@ -7,7 +7,7 @@ require_once "app/models/User.php";
 class Reports {
 
     public function index() {
-        // ✅ Access Control: Only admin can view reports
+        // Access Control: Only admin can view reports
         if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
             header("Location: /home");
             exit;
